@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 社区论坛</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* 页面特定样式 */
+      .forum-header {
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 30px;
+      }
+
+      .forum-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+      }
+
+      .category-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .category-tab {
+        padding: 8px 15px;
+        background-color: #f5f5f5;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .category-tab.active {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .post-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+
+      .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .post-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+
+      .post-meta {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .post-category {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: #e0f2f1;
+        color: #00897b;
+        border-radius: 15px;
+        font-size: 12px;
+        margin-right: 10px;
+      }
+
+      .post-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .post-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+      }
+
+      .post-stats {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+        color: #666;
+      }
+
+      .post-stat {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+      }
+
+      .post-stat:hover {
+        color: var(--primary-color);
+      }
+
+      .post-filters {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 700px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 30px;
+        position: relative;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .create-post-form .form-group {
+        margin-bottom: 20px;
+      }
+
+      .upload-area {
+        border: 2px dashed #ddd;
+        padding: 30px;
+        text-align: center;
+        border-radius: var(--border-radius);
+        margin: 20px 0;
+        cursor: pointer;
+      }
+
+      .upload-preview {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .preview-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+      }
+
+      .preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .remove-preview {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 22px;
+        height: 22px;
+        background-color: #ff4d4f;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html">宠物领养</a></li>
+            <li><a href="forum.html" class="active">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="login.html" class="btn">登录/注册</a></li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <div class="forum-header">
+        <h1 class="page-title">社区论坛</h1>
+        <p>在这里分享养宠经验，交流宠物趣事，发布和查看领养信息</p>
+
+        <div class="category-tabs">
+          <div class="category-tab active">全部帖子</div>
+          <div class="category-tab">领养信息</div>
+          <div class="category-tab">养宠经验</div>
+          <div class="category-tab">宠物趣事</div>
+          <div class="category-tab">紧急求助</div>
+        </div>
+
+        <div class="forum-actions">
+          <div class="post-filters">
+            <select class="form-control">
+              <option>最新发布</option>
+              <option>热门讨论</option>
+              <option>精华内容</option>
+            </select>
+
+            <select class="form-control">
+              <option>全部地区</option>
+              <option>北京</option>
+              <option>上海</option>
+              <option>广州</option>
+              <option>深圳</option>
+            </select>
+          </div>
+
+          <button class="btn" data-modal="create-post-modal">
+            <i class="bi bi-plus-lg"></i> 发布帖子
+          </button>
+        </div>
+      </div>
+
+      <!-- Posts List -->
+      <div class="posts-list">
+        <!-- Post 1 -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-author">
+              <img
+                src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户1"
+                alt="用户头像"
+                class="author-avatar"
+              />
+              <div>
+                <h4>王小明</h4>
+                <div class="post-meta">
+                  <span class="post-category">领养信息</span>
+                  <span>2023-08-15 14:30</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="post-title">寻找爱心家庭领养一只金毛幼犬</h3>
+          <p class="post-content">
+            由于工作原因，家里的金毛生了一窝小狗狗，现在准备送养，希望能找到爱狗的家庭。幼犬已经做过基础检查和疫苗，非常健康活泼。地区：北京海淀区，有意者可以私信我详谈。
+          </p>
+
+          <div class="post-images">
+            <img
+              src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛幼犬1"
+              alt="金毛幼犬"
+              class="post-image"
+            />
+            <img
+              src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛幼犬2"
+              alt="金毛幼犬"
+              class="post-image"
+            />
+            <img
+              src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛幼犬3"
+              alt="金毛幼犬"
+              class="post-image"
+            />
+          </div>
+
+          <div class="post-stats">
+            <div class="post-stat"><i class="bi bi-chat"></i> 评论 (12)</div>
+            <div class="post-stat"><i class="bi bi-heart"></i> 点赞 (38)</div>
+            <div class="post-stat"><i class="bi bi-bookmark"></i> 收藏</div>
+            <div class="post-stat"><i class="bi bi-share"></i> 分享</div>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-author">
+              <img
+                src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户2"
+                alt="用户头像"
+                class="author-avatar"
+              />
+              <div>
+                <h4>张雨晴</h4>
+                <div class="post-meta">
+                  <span class="post-category">养宠经验</span>
+                  <span>2023-08-14 09:15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="post-title">分享一些养猫新手常见的误区</h3>
+          <p class="post-content">
+            作为一名养猫5年的老手，我想分享一些新手常犯的错误：1.
+            喂食牛奶（大多数成年猫都乳糖不耐受）；2. 只喂干粮不喂湿粮；3.
+            猫咪不喝水以为是正常的；4. 不定期驱虫...希望对新手猫主人有所帮助！
+          </p>
+
+          <div class="post-images">
+            <img
+              src="https://placehold.co/600x400/9C27B0/FFFFFF?text=猫咪照片"
+              alt="猫咪照片"
+              class="post-image"
+            />
+          </div>
+
+          <div class="post-stats">
+            <div class="post-stat"><i class="bi bi-chat"></i> 评论 (24)</div>
+            <div class="post-stat"><i class="bi bi-heart"></i> 点赞 (76)</div>
+            <div class="post-stat"><i class="bi bi-bookmark"></i> 收藏</div>
+            <div class="post-stat"><i class="bi bi-share"></i> 分享</div>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-author">
+              <img
+                src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户3"
+                alt="用户头像"
+                class="author-avatar"
+              />
+              <div>
+                <h4>李大壮</h4>
+                <div class="post-meta">
+                  <span class="post-category">紧急求助</span>
+                  <span>2023-08-13 18:42</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="post-title">急！在朝阳区捡到一只受伤的流浪猫</h3>
+          <p class="post-content">
+            今天下班路上在朝阳区建国路附近捡到一只受伤的小猫，腿部有伤口，已经简单处理并带回家。请问附近有推荐的宠物医院吗？或者有愿意收养的爱心人士？本人租房不方便长期养猫。
+          </p>
+
+          <div class="post-images">
+            <img
+              src="https://placehold.co/600x400/3F51B5/FFFFFF?text=受伤小猫"
+              alt="受伤小猫"
+              class="post-image"
+            />
+          </div>
+
+          <div class="post-stats">
+            <div class="post-stat"><i class="bi bi-chat"></i> 评论 (31)</div>
+            <div class="post-stat"><i class="bi bi-heart"></i> 点赞 (42)</div>
+            <div class="post-stat"><i class="bi bi-bookmark"></i> 收藏</div>
+            <div class="post-stat"><i class="bi bi-share"></i> 分享</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="page-item active">1</div>
+        <div class="page-item">2</div>
+        <div class="page-item">3</div>
+        <div class="page-item"><i class="bi bi-chevron-right"></i></div>
+      </div>
+    </main>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="modal">
+      <div class="modal-content">
+        <button class="close-modal"><i class="bi bi-x"></i></button>
+        <h2>发布帖子</h2>
+        <form class="create-post-form">
+          <div class="form-group">
+            <label for="post-category"
+              >选择分类 <span class="required">*</span></label
+            >
+            <select id="post-category" name="category" required>
+              <option value="">请选择分类</option>
+              <option value="adoption">领养信息</option>
+              <option value="experience">养宠经验</option>
+              <option value="stories">宠物趣事</option>
+              <option value="help">紧急求助</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="post-title">标题 <span class="required">*</span></label>
+            <input
+              type="text"
+              id="post-title"
+              name="title"
+              required
+              placeholder="请输入帖子标题（5-30字）"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="post-content"
+              >内容 <span class="required">*</span></label
+            >
+            <textarea
+              id="post-content"
+              name="content"
+              required
+              rows="6"
+              placeholder="请详细描述您要分享的内容..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>上传图片（可选，最多9张）</label>
+            <div class="upload-area">
+              <i class="bi bi-cloud-upload" style="font-size: 32px"></i>
+              <p>点击或拖拽图片到此处上传</p>
+              <input
+                type="file"
+                id="post-images"
+                name="images"
+                multiple
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+            <div class="upload-preview">
+              <!-- 预览区域 -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="post-location">地区（可选）</label>
+            <select id="post-location" name="location">
+              <option value="">选择地区</option>
+              <option value="beijing">北京</option>
+              <option value="shanghai">上海</option>
+              <option value="guangzhou">广州</option>
+              <option value="shenzhen">深圳</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="agree_terms" required />
+              我已阅读并同意<a href="#">《社区规范》</a>，内容真实且不含敏感信息
+            </label>
+          </div>
+
+          <button type="submit" class="btn">发布帖子</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="about.html">平台介绍</a></li>
+              <li><a href="about.html#team">团队成员</a></li>
+              <li><a href="about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="faq.html">常见问题</a></li>
+              <li><a href="terms.html">用户协议</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 分类标签切换
+        const categoryTabs = document.querySelectorAll(".category-tab");
+        categoryTabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            categoryTabs.forEach((t) => t.classList.remove("active"));
+            this.classList.add("active");
+            // 在实际应用中，这里会触发帖子列表的筛选
+          });
+        });
+
+        // 上传区域交互
+        const uploadArea = document.querySelector(".upload-area");
+        const fileInput = document.getElementById("post-images");
+        const previewArea = document.querySelector(".upload-preview");
+
+        uploadArea.addEventListener("click", function () {
+          fileInput.click();
+        });
+
+        fileInput.addEventListener("change", function () {
+          // 清空预览区域
+          previewArea.innerHTML = "";
+
+          // 限制上传数量
+          const maxFiles = 9;
+          const files = Array.from(this.files).slice(0, maxFiles);
+
+          files.forEach((file) => {
+            // 创建预览元素
+            const previewItem = document.createElement("div");
+            previewItem.className = "preview-item";
+
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+
+            const removeBtn = document.createElement("div");
+            removeBtn.className = "remove-preview";
+            removeBtn.innerHTML = '<i class="bi bi-x"></i>';
+            removeBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              previewItem.remove();
+              // 注意：在实际应用中，这里需要更新fileInput的files属性
+            });
+
+            previewItem.appendChild(img);
+            previewItem.appendChild(removeBtn);
+            previewArea.appendChild(previewItem);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

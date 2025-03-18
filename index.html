@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 首页</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      .hero {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url("https://placehold.co/1200x500/4CAF50/FFFFFF?text=宠物领养系统");
+      }
+
+      .process-steps {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 40px 0;
+      }
+
+      .step {
+        flex: 1;
+        min-width: 200px;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+      }
+
+      .step-icon {
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 24px;
+      }
+
+      .testimonial {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 30px;
+        margin: 20px 0;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="pages/pets.html">宠物领养</a></li>
+            <li><a href="pages/forum.html">社区论坛</a></li>
+            <li><a href="pages/consultation.html">在线问诊</a></li>
+            <li><a href="pages/about.html">关于我们</a></li>
+            <li><a href="pages/login.html" class="btn">登录/注册</a></li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>为它们寻找温暖的家</h1>
+        <p>每一只宠物都值得被爱，每一个家庭都能给予温暖</p>
+        <a href="pages/pets.html" class="btn btn-secondary">立即领养</a>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Features Section -->
+      <section class="features">
+        <h2 class="section-title">我们的服务</h2>
+        <div class="grid">
+          <div class="card">
+            <img
+              src="https://placehold.co/600x400/FFA000/FFFFFF?text=宠物领养"
+              alt="宠物领养"
+              class="card-image"
+            />
+            <div class="card-content">
+              <h3 class="card-title">宠物领养</h3>
+              <p class="card-text">
+                我们提供多种类型的宠物领养，严格审核领养家庭，确保每一只宠物都能找到温暖的家。
+              </p>
+              <a href="pages/pets.html" class="btn">查看宠物</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="https://placehold.co/600x400/2196F3/FFFFFF?text=在线问诊"
+              alt="在线问诊"
+              class="card-image"
+            />
+            <div class="card-content">
+              <h3 class="card-title">在线问诊</h3>
+              <p class="card-text">
+                专业兽医在线解答，为您的宠物健康提供专业指导，快速响应紧急情况。
+              </p>
+              <a href="pages/consultation.html" class="btn">咨询医生</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="https://placehold.co/600x400/E91E63/FFFFFF?text=社区论坛"
+              alt="社区论坛"
+              class="card-image"
+            />
+            <div class="card-content">
+              <h3 class="card-title">社区论坛</h3>
+              <p class="card-text">
+                分享养宠经验，交流宠物趣事，发布和查看领养信息，共建温暖社区。
+              </p>
+              <a href="pages/forum.html" class="btn">加入社区</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Process Section -->
+      <section class="process">
+        <h2 class="section-title">领养流程</h2>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-icon"><i class="bi bi-search"></i></div>
+            <h3>浏览宠物</h3>
+            <p>浏览我们的宠物库，查看详细信息，找到与你匹配的宠物伙伴。</p>
+          </div>
+          <div class="step">
+            <div class="step-icon"><i class="bi bi-file-earmark-text"></i></div>
+            <h3>提交申请</h3>
+            <p>填写领养申请表，提供个人信息和家庭环境，方便我们评估匹配度。</p>
+          </div>
+          <div class="step">
+            <div class="step-icon"><i class="bi bi-chat-dots"></i></div>
+            <h3>沟通确认</h3>
+            <p>我们会联系您进行沟通，确认领养意向和领养条件。</p>
+          </div>
+          <div class="step">
+            <div class="step-icon"><i class="bi bi-house-heart"></i></div>
+            <h3>迎接新家人</h3>
+            <p>申请通过后，您可以迎接新家人入住，开始新的生活。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials">
+        <h2 class="section-title">领养故事</h2>
+        <div class="testimonial-slider">
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <p>
+                "感谢宠爱有家平台，让我遇到了我的小伙伴。领养过程非常顺利，工作人员也很专业。现在它已经是我家不可或缺的一员了。"
+              </p>
+              <div class="testimonial-author">
+                <img
+                  src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户1"
+                  alt="用户头像"
+                  class="author-avatar"
+                />
+                <div class="author-info">
+                  <h4>张小姐</h4>
+                  <p>领养了小猫咪"奶茶"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <p>
+                "平台上的宠物信息非常详细，让我能够选择适合自己家庭的宠物。在线问诊功能也帮了我很多忙，解答了很多养宠初期的疑问。"
+              </p>
+              <div class="testimonial-author">
+                <img
+                  src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户2"
+                  alt="用户头像"
+                  class="author-avatar"
+                />
+                <div class="author-info">
+                  <h4>王先生</h4>
+                  <p>领养了小狗"豆豆"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="pages/about.html">平台介绍</a></li>
+              <li><a href="pages/about.html#team">团队成员</a></li>
+              <li><a href="pages/about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="pages/faq.html">常见问题</a></li>
+              <li><a href="pages/terms.html">用户协议</a></li>
+              <li><a href="pages/privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

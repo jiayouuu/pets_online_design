@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 宠物列表</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Page specific styles */
+      .filters {
+        background: var(--white);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-bottom: 30px;
+        box-shadow: var(--box-shadow);
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .filter-group {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .pet-card {
+        position: relative;
+      }
+
+      .pet-status {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+      }
+
+      .pet-details {
+        display: flex;
+        margin-top: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pet-detail {
+        background-color: #f5f5f5;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        gap: 10px;
+      }
+
+      .page-item {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: var(--white);
+        box-shadow: var(--box-shadow);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .page-item:hover,
+      .page-item.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html" class="active">宠物领养</a></li>
+            <li><a href="forum.html">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="login.html" class="btn">登录/注册</a></li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <h1 class="page-title">宠物领养</h1>
+
+      <!-- Filters -->
+      <div class="filters">
+        <h3>筛选条件</h3>
+        <form id="pet-filter-form">
+          <div class="filter-row">
+            <div class="filter-group">
+              <label for="pet-type">宠物类型</label>
+              <select id="pet-type" name="type">
+                <option value="">全部类型</option>
+                <option value="dog">狗狗</option>
+                <option value="cat">猫咪</option>
+                <option value="other">其他宠物</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="pet-breed">品种</label>
+              <select id="pet-breed" name="breed">
+                <option value="">全部品种</option>
+                <option value="golden">金毛</option>
+                <option value="labrador">拉布拉多</option>
+                <option value="husky">哈士奇</option>
+                <option value="siamese">暹罗猫</option>
+                <option value="persian">波斯猫</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="pet-age">年龄</label>
+              <select id="pet-age" name="age">
+                <option value="">全部年龄</option>
+                <option value="puppy">幼年 (0-1岁)</option>
+                <option value="young">青年 (1-3岁)</option>
+                <option value="adult">成年 (3-8岁)</option>
+                <option value="senior">老年 (8岁以上)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-group">
+              <label for="pet-location">地区</label>
+              <select id="pet-location" name="location">
+                <option value="">全国</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+                <option value="guangzhou">广州</option>
+                <option value="shenzhen">深圳</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="pet-gender">性别</label>
+              <select id="pet-gender" name="gender">
+                <option value="">全部性别</option>
+                <option value="male">公</option>
+                <option value="female">母</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="pet-size">体型</label>
+              <select id="pet-size" name="size">
+                <option value="">全部体型</option>
+                <option value="small">小型</option>
+                <option value="medium">中型</option>
+                <option value="large">大型</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn">应用筛选</button>
+          <button type="reset" class="btn btn-secondary">重置</button>
+        </form>
+      </div>
+
+      <!-- Pets Grid -->
+      <div class="grid">
+        <!-- Pet Card 1 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛犬"
+            alt="金毛犬"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">阳阳</h3>
+            <p class="card-text">
+              阳阳是一只活泼、友善的金毛犬，喜欢和人互动，非常适合有孩子的家庭。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 北京</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-male"></i> 公</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 2岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 中型</span>
+            </div>
+            <a href="pet-detail.html?id=1" class="btn">查看详情</a>
+          </div>
+        </div>
+
+        <!-- Pet Card 2 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/9C27B0/FFFFFF?text=暹罗猫"
+            alt="暹罗猫"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">咪咪</h3>
+            <p class="card-text">
+              咪咪是一只安静、优雅的暹罗猫，性格温顺，适应能力强，容易与家庭成员建立感情。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 上海</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-female"></i> 母</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 1.5岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 小型</span>
+            </div>
+            <a href="pet-detail.html?id=2" class="btn">查看详情</a>
+          </div>
+        </div>
+
+        <!-- Pet Card 3 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/795548/FFFFFF?text=拉布拉多"
+            alt="拉布拉多"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">豆豆</h3>
+            <p class="card-text">
+              豆豆是一只聪明、忠诚的拉布拉多，经过基础训练，性格开朗活泼，喜欢户外活动。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 广州</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-male"></i> 公</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 3岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 大型</span>
+            </div>
+            <a href="pet-detail.html?id=3" class="btn">查看详情</a>
+          </div>
+        </div>
+
+        <!-- Pet Card 4 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/3F51B5/FFFFFF?text=波斯猫"
+            alt="波斯猫"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">毛毛</h3>
+            <p class="card-text">
+              毛毛是一只安静、高贵的波斯猫，喜欢安静的环境，需要定期梳理毛发。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 深圳</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-female"></i> 母</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 4岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 小型</span>
+            </div>
+            <a href="pet-detail.html?id=4" class="btn">查看详情</a>
+          </div>
+        </div>
+
+        <!-- Pet Card 5 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/2196F3/FFFFFF?text=哈士奇"
+            alt="哈士奇"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">雪球</h3>
+            <p class="card-text">
+              雪球是一只活力充沛、聪明的哈士奇，喜欢运动，需要有足够空间的家庭。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 北京</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-male"></i> 公</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 2.5岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 中型</span>
+            </div>
+            <a href="pet-detail.html?id=5" class="btn">查看详情</a>
+          </div>
+        </div>
+
+        <!-- Pet Card 6 -->
+        <div class="card pet-card">
+          <div class="pet-status">待领养</div>
+          <img
+            src="https://placehold.co/600x400/4CAF50/FFFFFF?text=英国短毛猫"
+            alt="英国短毛猫"
+            class="card-image"
+          />
+          <div class="card-content">
+            <h3 class="card-title">奶茶</h3>
+            <p class="card-text">
+              奶茶是一只温顺、亲人的英国短毛猫，适合初次养猫的家庭，不挑食且易于照顾。
+            </p>
+            <div class="pet-details">
+              <span class="pet-detail"><i class="bi bi-geo-alt"></i> 上海</span>
+              <span class="pet-detail"
+                ><i class="bi bi-gender-female"></i> 母</span
+              >
+              <span class="pet-detail"
+                ><i class="bi bi-calendar3"></i> 1岁</span
+              >
+              <span class="pet-detail"><i class="bi bi-rulers"></i> 小型</span>
+            </div>
+            <a href="pet-detail.html?id=6" class="btn">查看详情</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="page-item active">1</div>
+        <div class="page-item">2</div>
+        <div class="page-item">3</div>
+        <div class="page-item"><i class="bi bi-chevron-right"></i></div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="about.html">平台介绍</a></li>
+              <li><a href="about.html#team">团队成员</a></li>
+              <li><a href="about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="faq.html">常见问题</a></li>
+              <li><a href="terms.html">用户协议</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>

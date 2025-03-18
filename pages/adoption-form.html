@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宠物领养系统 - 领养申请表</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <style>
+    /* 页面特定样式 */
+    .adoption-container {
+      margin: 40px 0;
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 40px;
+    }
+    
+    .pet-preview {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .pet-preview-image {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--border-radius);
+      object-fit: cover;
+    }
+    
+    .form-section {
+      margin-bottom: 30px;
+    }
+    
+    .form-section-title {
+      font-size: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #eee;
+      z-index: 1;
+    }
+    
+    .step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 25%;
+    }
+    
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #eee;
+      color: #666;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      font-weight: bold;
+    }
+    
+    .step.active .step-number {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .step.completed .step-number {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .step.completed .step-number::after {
+      content: '\2714';
+    }
+    
+    .form-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    
+    .signature-box {
+      border: 1px dashed #ccc;
+      border-radius: var(--border-radius);
+      height: 200px;
+      width: 100%;
+      margin-top: 10px;
+      position: relative;
+    }
+    
+    .signature-instructions {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #aaa;
+      text-align: center;
+    }
+    
+    .clear-signature {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: underline;
+      display: inline-block;
+    }
+    
+    .agreement-box {
+      margin-top: 30px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    
+    .confirmation-message {
+      text-align: center;
+      padding: 50px 0;
+    }
+    
+    .confirmation-icon {
+      font-size: 80px;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+    }
+    
+    .hidden-step {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">宠爱有家</div>
+        <ul class="nav-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="pets.html">宠物领养</a></li>
+          <li><a href="forum.html">社区论坛</a></li>
+          <li><a href="consultation.html">在线问诊</a></li>
+          <li><a href="about.html">关于我们</a></li>
+          <li><a href="user-center.html" class="btn">个人中心</a></li>
+        </ul>
+        <div class="menu-toggle">
+          <i class="bi bi-list"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="container">
+    <div class="adoption-container">
+      <h1>宠物领养申请表</h1>
+      
+      <!-- 步骤指示器 -->
+      <div class="step-indicator">
+        <div class="step completed">
+          <div class="step-number">1</div>
+          <div class="step-label">基本信息</div>
+        </div>
+        <div class="step active">
+          <div class="step-number">2</div>
+          <div class="step-label">家庭环境</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-label">饲养计划</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-label">确认提交</div>
+        </div>
+      </div>
+      
+      <!-- 申请宠物预览 -->
+      <div class="pet-preview">
+        <img src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛犬" alt="金毛犬" class="pet-preview-image">
+        <div>
+          <h3>金毛犬"阳阳"</h3>
+          <p>2岁，公，已绝育，活泼友善</p>
+          <p>所在地：北京市海淀区</p>
+        </div>
+      </div>
+      
+      <!-- 表单 -->
+      <form id="adoption-form">
+        <!-- 步骤1：基本信息 -->
+        <div class="form-step hidden-step" id="step1">
+          <div class="form-section">
+            <h3 class="form-section-title">申请人信息</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">姓名 <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="gender">性别 <span class="required">*</span></label>
+                <select id="gender" name="gender" required>
+                  <option value="">请选择</option>
+                  <option value="male">男</option>
+                  <option value="female">女</option>
+                  <option value="other">其他</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="age">年龄 <span class="required">*</span></label>
+                <input type="number" id="age" name="age" min="18" required>
+              </div>
+              <div class="form-group">
+                <label for="occupation">职业 <span class="required">*</span></label>
+                <input type="text" id="occupation" name="occupation" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">联系电话 <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="email">电子邮箱 <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="address">家庭住址 <span class="required">*</span></label>
+              <input type="text" id="address" name="address" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="id-number">身份证号 <span class="required">*</span></label>
+              <input type="text" id="id-number" name="id_number" required>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h3 class="form-section-title">紧急联系人</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="emergency-name">姓名 <span class="required">*</span></label>
+                <input type="text" id="emergency-name" name="emergency_name" required>
+              </div>
+              <div class="form-group">
+                <label for="emergency-phone">联系电话 <span class="required">*</span></label>
+                <input type="tel" id="emergency-phone" name="emergency_phone" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="emergency-relation">与申请人关系 <span class="required">*</span></label>
+              <input type="text" id="emergency-relation" name="emergency_relation" required>
+            </div>
+          </div>
+          
+          <div class="form-buttons">
+            <a href="pet-detail.html" class="btn btn-secondary">返回宠物详情</a>
+            <button type="button" class="btn" id="next-to-step2">下一步</button>
+          </div>
+        </div>
+        
+        <!-- 步骤2：家庭环境 -->
+        <div class="form-step" id="step2">
+          <div class="form-section">
+            <h3 class="form-section-title">住房情况</h3>
+            <div class="form-group">
+              <label>住房类型 <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="house-type-1" name="house_type" value="apartment" required>
+                  <label for="house-type-1">公寓/单元房</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="house-type-2" name="house_type" value="house">
+                  <label for="house-type-2">独栋别墅</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="house-type-3" name="house_type" value="townhouse">
+                  <label for="house-type-3">联排别墅</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="house-type-4" name="house_type" value="other">
+                  <label for="house-type-4">其他</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>住房性质 <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="house-ownership-1" name="house_ownership" value="own" required>
+                  <label for="house-ownership-1">自有住房</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="house-ownership-2" name="house_ownership" value="rent">
+                  <label for="house-ownership-2">租赁住房</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="house-ownership-3" name="house_ownership" value="other">
+                  <label for="house-ownership-3">其他</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="house-size">住房面积（平方米） <span class="required">*</span></label>
+                <input type="number" id="house-size" name="house_size" required>
+              </div>
+              <div class="form-group">
+                <label for="yard-size">院子面积（平方米，如有）</label>
+                <input type="number" id="yard-size" name="yard_size">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>您的住所是否允许养宠物？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="pet-allowed-1" name="pet_allowed" value="yes" required>
+                  <label for="pet-allowed-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="pet-allowed-2" name="pet_allowed" value="no">
+                  <label for="pet-allowed-2">否</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="pet-allowed-3" name="pet_allowed" value="unknown">
+                  <label for="pet-allowed-3">不确定</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h3 class="form-section-title">家庭成员</h3>
+            <div class="form-group">
+              <label for="family-members">家庭成员人数（包括自己） <span class="required">*</span></label>
+              <input type="number" id="family-members" name="family_members" min="1" required>
+            </div>
+            
+            <div class="form-group">
+              <label>家中是否有儿童？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="has-children-1" name="has_children" value="yes" required>
+                  <label for="has-children-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="has-children-2" name="has_children" value="no">
+                  <label for="has-children-2">否</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group" id="children-age-group" style="display: none;">
+              <label>儿童年龄段（可多选） <span class="required">*</span></label>
+              <div class="checkbox-group">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="child-age-1" name="child_age[]" value="0-3">
+                  <label for="child-age-1">0-3岁</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="child-age-2" name="child_age[]" value="4-6">
+                  <label for="child-age-2">4-6岁</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="child-age-3" name="child_age[]" value="7-12">
+                  <label for="child-age-3">7-12岁</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="child-age-4" name="child_age[]" value="13-18">
+                  <label for="child-age-4">13-18岁</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>家中是否已有其他宠物？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="has-pets-1" name="has_pets" value="yes" required>
+                  <label for="has-pets-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="has-pets-2" name="has_pets" value="no">
+                  <label for="has-pets-2">否</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group" id="existing-pets-group" style="display: none;">
+              <label for="existing-pets">请描述您现有的宠物（种类、数量、年龄等） <span class="required">*</span></label>
+              <textarea id="existing-pets" name="existing_pets" rows="3"></textarea>
+            </div>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" id="back-to-step1">上一步</button>
+            <button type="button" class="btn" id="next-to-step3">下一步</button>
+          </div>
+        </div>
+        
+        <!-- 步骤3：饲养计划 -->
+        <div class="form-step hidden-step" id="step3">
+          <div class="form-section">
+            <h3 class="form-section-title">饲养经验</h3>
+            <div class="form-group">
+              <label>您之前是否有饲养宠物的经验？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="experience-1" name="pet_experience" value="yes" required>
+                  <label for="experience-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="experience-2" name="pet_experience" value="no">
+                  <label for="experience-2">否</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group" id="experience-detail-group" style="display: none;">
+              <label for="experience-detail">请简单描述您的饲养经验 <span class="required">*</span></label>
+              <textarea id="experience-detail" name="experience_detail" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="why-adopt">您为什么想要领养这只宠物？ <span class="required">*</span></label>
+              <textarea id="why-adopt" name="why_adopt" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="pet-understanding">您对宠物的行为、习性和需求有哪些了解？ <span class="required">*</span></label>
+              <textarea id="pet-understanding" name="pet_understanding" rows="3" required></textarea>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h3 class="form-section-title">饲养计划</h3>
+            <div class="form-group">
+              <label for="daily-time">您每天能够陪伴宠物的时间？（小时） <span class="required">*</span></label>
+              <input type="number" id="daily-time" name="daily_time" min="1" max="24" required>
+            </div>
+            
+            <div class="form-group">
+              <label>谁将是宠物的主要照顾者？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="caretaker-1" name="caretaker" value="self" required>
+                  <label for="caretaker-1">本人</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="caretaker-2" name="caretaker" value="family">
+                  <label for="caretaker-2">家庭成员</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="caretaker-3" name="caretaker" value="shared">
+                  <label for="caretaker-3">共同照顾</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="caretaker-4" name="caretaker" value="other">
+                  <label for="caretaker-4">其他</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="alone-time">宠物每天需要独处的时间？（小时） <span class="required">*</span></label>
+              <input type="number" id="alone-time" name="alone_time" min="0" max="24" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="care-plan">当您外出或度假时，如何安排宠物的照顾？ <span class="required">*</span></label>
+              <textarea id="care-plan" name="care_plan" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="medical-plan">您如何计划处理宠物的医疗需求和费用？ <span class="required">*</span></label>
+              <textarea id="medical-plan" name="medical_plan" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label>您是否准备为宠物购买保险？</label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="insurance-1" name="pet_insurance" value="yes">
+                  <label for="insurance-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="insurance-2" name="pet_insurance" value="no">
+                  <label for="insurance-2">否</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="insurance-3" name="pet_insurance" value="considering">
+                  <label for="insurance-3">考虑中</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>您是否了解绝育的重要性？ <span class="required">*</span></label>
+              <div class="radio-group">
+                <div class="radio-item">
+                  <input type="radio" id="spay-neuter-1" name="spay_neuter_knowledge" value="yes" required>
+                  <label for="spay-neuter-1">是</label>
+                </div>
+                <div class="radio-item">
+                  <input type="radio" id="spay-neuter-2" name="spay_neuter_knowledge" value="no">
+                  <label for="spay-neuter-2">否</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" id="back-to-step2">上一步</button>
+            <button type="button" class="btn" id="next-to-step4">下一步</button>
+          </div>
+        </div>
+        
+        <!-- 步骤4：确认提交 -->
+        <div class="form-step hidden-step" id="step4">
+          <div class="form-section">
+            <h3 class="form-section-title">领养协议</h3>
+            <div class="agreement-box">
+              <h4>领养协议条款</h4>
+              <p>本领养协议（以下简称"协议"）由以下双方签署：</p>
+              <p>领养方：_________________（以下简称"领养人"）</p>
+              <p>送养方：宠爱有家宠物保护中心（以下简称"中心"）</p>
+              
+              <h5>一、领养目的</h5>
+              <p>领养人承诺将为被领养的宠物提供爱心、照顾和终身的家，确保其生活在安全、健康、愉快的环境中。</p>
+              
+              <h5>二、领养人的责任与义务</h5>
+              <ol>
+                <li>提供适当的生活空间、营养均衡的食物、清洁的饮水、必要的医疗保健及其他基本需求；</li>
+                <li>遵守当地宠物管理相关法律法规，为宠物办理必要的登记手续；</li>
+                <li>保证不虐待、遗弃、转卖、赠送或以其他方式处置被领养的宠物；</li>
+                <li>如因特殊情况无法继续饲养，应联系中心协商妥善安置方案；</li>
+                <li>接受中心定期或不定期的回访和跟踪，提供宠物近况；</li>
+                <li>为宠物提供必要的训练和社会化，确保宠物不会对公共安全造成威胁；</li>
+                <li>如宠物走失，应立即通知中心并积极寻找。</li>
+              </ol>
+              
+              <h5>三、费用与支出</h5>
+              <p>领养人应承担领养后宠物的所有费用，包括但不限于：日常饲养费用、医疗费用、疫苗接种费用、绝育手术费用（若未绝育）等。</p>
+              
+              <h5>四、中心的权利与义务</h5>
+              <ol>
+                <li>对领养人进行资格审查，确保宠物被安置在合适的家庭；</li>
+                <li>提供宠物的健康记录、行为特点等相关信息；</li>
+                <li>提供必要的饲养建议和支持；</li>
+                <li>有权对被领养的宠物进行回访和跟踪；</li>
+                <li>发现领养人违反本协议或无法提供适当照顾时，有权收回宠物。</li>
+              </ol>
+              
+              <h5>五、协议期限</h5>
+              <p>本协议自双方签字之日起生效，至宠物自然死亡为止。</p>
+              
+              <h5>六、违约责任</h5>
+              <p>若领养人违反本协议任何条款，中心有权无条件收回宠物，且领养人应承担由此产生的一切费用。情节严重者，中心保留追究法律责任的权利。</p>
+              
+              <h5>七、其他约定</h5>
+              <p>本协议一式两份，双方各执一份，具有同等法律效力。</p>
+            </div>
+            
+            <div class="form-check">
+              <input type="checkbox" id="agreement-check" name="agreement" required>
+              <label for="agreement-check">我已阅读并同意上述领养协议的全部条款 <span class="required">*</span></label>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h3 class="form-section-title">电子签名</h3>
+            <p>请在下方签署您的姓名，表示您同意遵守领养协议的各项条款。</p>
+            
+            <div class="signature-box" id="signature-pad">
+              <div class="signature-instructions">
+                <i class="bi bi-pencil"></i>
+                <p>在此处签名</p>
+              </div>
+            </div>
+            
+            <a href="#" class="clear-signature" id="clear-signature">清除签名</a>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" id="back-to-step3">上一步</button>
+            <button type="submit" class="btn">提交申请</button>
+          </div>
+        </div>
+        
+        <!-- 提交成功 -->
+        <div class="form-step hidden-step" id="success-step">
+          <div class="confirmation-message">
+            <div class="confirmation-icon">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <h2>申请提交成功！</h2>
+            <p>您的领养申请已成功提交，申请编号：<strong id="application-id">A202304250006</strong></p>
+            <p>我们将在3个工作日内审核您的申请，并通过电话或邮件通知您审核结果。</p>
+            <p>感谢您选择领养而不是购买，给流浪宠物一个温暖的家！</p>
+            <div style="margin-top: 40px;">
+              <a href="pets.html" class="btn btn-secondary">继续浏览</a>
+              <a href="user-center.html" class="btn">查看申请状态</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>宠爱有家</h3>
+          <p>帮助流浪宠物找到温暖的家</p>
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-wechat"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>快速链接</h3>
+          <ul>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html">宠物领养</a></li>
+            <li><a href="forum.html">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>联系我们</h3>
+          <p><i class="bi bi-geo-alt"></i> 北京市海淀区中关村大街1号</p>
+          <p><i class="bi bi-telephone"></i> 400-123-4567</p>
+          <p><i class="bi bi-envelope"></i> contact@petadopt.com</p>
+        </div>
+        <div class="footer-section">
+          <h3>订阅通讯</h3>
+          <p>获取最新的宠物领养信息和活动</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="输入您的邮箱">
+            <button type="submit" class="btn">订阅</button>
+          </form>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 宠爱有家. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="../js/main.js"></script>
+  <script>
+    // 领养申请表单特定的JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      // 显示第一步
+      document.getElementById('step1').classList.remove('hidden-step');
+      
+      // 步骤切换
+      const backToStep1 = document.getElementById('back-to-step1');
+      const nextToStep2 = document.getElementById('next-to-step2');
+      const backToStep2 = document.getElementById('back-to-step2');
+      const nextToStep3 = document.getElementById('next-to-step3');
+      const backToStep3 = document.getElementById('back-to-step3');
+      const nextToStep4 = document.getElementById('next-to-step4');
+      
+      nextToStep2.addEventListener('click', function() {
+        // 验证第一步表单
+        const step1 = document.getElementById('step1');
+        const inputs = step1.querySelectorAll('input[required], select[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+          if (!input.value) {
+            isValid = false;
+            input.classList.add('invalid');
+          } else {
+            input.classList.remove('invalid');
+          }
+        });
+        
+        if (!isValid) {
+          alert('请填写所有必填项');
+          return;
+        }
+        
+        // 切换到第二步
+        document.getElementById('step1').classList.add('hidden-step');
+        document.getElementById('step2').classList.remove('hidden-step');
+        
+        // 更新步骤指示器
+        updateStepIndicator(2);
+      });
+      
+      backToStep1.addEventListener('click', function() {
+        document.getElementById('step2').classList.add('hidden-step');
+        document.getElementById('step1').classList.remove('hidden-step');
+        updateStepIndicator(1);
+      });
+      
+      nextToStep3.addEventListener('click', function() {
+        // 验证第二步表单
+        const step2 = document.getElementById('step2');
+        const inputs = step2.querySelectorAll('input[required], select[required], textarea[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+          if (input.type === 'radio') {
+            const name = input.name;
+            const checked = step2.querySelector(`input[name="${name}"]:checked`);
+            if (!checked) {
+              isValid = false;
+              input.closest('.form-group').classList.add('invalid');
+            } else {
+              input.closest('.form-group').classList.remove('invalid');
+            }
+          } else if (!input.value) {
+            isValid = false;
+            input.classList.add('invalid');
+          } else {
+            input.classList.remove('invalid');
+          }
+        });
+        
+        if (!isValid) {
+          alert('请填写所有必填项');
+          return;
+        }
+        
+        // 切换到第三步
+        document.getElementById('step2').classList.add('hidden-step');
+        document.getElementById('step3').classList.remove('hidden-step');
+        
+        // 更新步骤指示器
+        updateStepIndicator(3);
+      });
+      
+      backToStep2.addEventListener('click', function() {
+        document.getElementById('step3').classList.add('hidden-step');
+        document.getElementById('step2').classList.remove('hidden-step');
+        updateStepIndicator(2);
+      });
+      
+      nextToStep4.addEventListener('click', function() {
+        // 验证第三步表单
+        const step3 = document.getElementById('step3');
+        const inputs = step3.querySelectorAll('input[required], select[required], textarea[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+          if (input.type === 'radio') {
+            const name = input.name;
+            const checked = step3.querySelector(`input[name="${name}"]:checked`);
+            if (!checked) {
+              isValid = false;
+              input.closest('.form-group').classList.add('invalid');
+            } else {
+              input.closest('.form-group').classList.remove('invalid');
+            }
+          } else if (!input.value) {
+            isValid = false;
+            input.classList.add('invalid');
+          } else {
+            input.classList.remove('invalid');
+          }
+        });
+        
+        if (!isValid) {
+          alert('请填写所有必填项');
+          return;
+        }
+        
+        // 切换到第四步
+        document.getElementById('step3').classList.add('hidden-step');
+        document.getElementById('step4').classList.remove('hidden-step');
+        
+        // 更新步骤指示器
+        updateStepIndicator(4);
+      });
+      
+      backToStep3.addEventListener('click', function() {
+        document.getElementById('step4').classList.add('hidden-step');
+        document.getElementById('step3').classList.remove('hidden-step');
+        updateStepIndicator(3);
+      });
+      
+      // 更新步骤指示器
+      function updateStepIndicator(currentStep) {
+        const steps = document.querySelectorAll('.step');
+        steps.forEach((step, index) => {
+          if (index + 1 < currentStep) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+          } else if (index + 1 === currentStep) {
+            step.classList.add('active');
+            step.classList.remove('completed');
+          } else {
+            step.classList.remove('active', 'completed');
+          }
+        });
+      }
+      
+      // 条件显示问题
+      const hasChildrenRadios = document.querySelectorAll('input[name="has_children"]');
+      const childrenAgeGroup = document.getElementById('children-age-group');
+      
+      hasChildrenRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            childrenAgeGroup.style.display = 'block';
+            childrenAgeGroup.querySelectorAll('input').forEach(input => {
+              input.setAttribute('required', '');
+            });
+          } else {
+            childrenAgeGroup.style.display = 'none';
+            childrenAgeGroup.querySelectorAll('input').forEach(input => {
+              input.removeAttribute('required');
+            });
+          }
+        });
+      });
+      
+      const hasPetsRadios = document.querySelectorAll('input[name="has_pets"]');
+      const existingPetsGroup = document.getElementById('existing-pets-group');
+      
+      hasPetsRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            existingPetsGroup.style.display = 'block';
+            existingPetsGroup.querySelector('textarea').setAttribute('required', '');
+          } else {
+            existingPetsGroup.style.display = 'none';
+            existingPetsGroup.querySelector('textarea').removeAttribute('required');
+          }
+        });
+      });
+      
+      const experienceRadios = document.querySelectorAll('input[name="pet_experience"]');
+      const experienceDetailGroup = document.getElementById('experience-detail-group');
+      
+      experienceRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            experienceDetailGroup.style.display = 'block';
+            experienceDetailGroup.querySelector('textarea').setAttribute('required', '');
+          } else {
+            experienceDetailGroup.style.display = 'none';
+            experienceDetailGroup.querySelector('textarea').removeAttribute('required');
+          }
+        });
+      });
+      
+      // 表单提交
+      const adoptionForm = document.getElementById('adoption-form');
+      
+      adoptionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 验证第四步表单
+        const step4 = document.getElementById('step4');
+        const agreementCheck = document.getElementById('agreement-check');
+        
+        if (!agreementCheck.checked) {
+          alert('请阅读并同意领养协议');
+          return;
+        }
+        
+        // 检查签名
+        const signaturePad = document.getElementById('signature-pad');
+        if (signaturePad.classList.contains('signature-empty')) {
+          alert('请签署您的姓名');
+          return;
+        }
+        
+        // 显示成功页面
+        document.getElementById('step4').classList.add('hidden-step');
+        document.getElementById('success-step').classList.remove('hidden-step');
+        
+        // 生成随机申请编号
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        const applicationId = `A${year}${month}${day}${random}`;
+        
+        document.getElementById('application-id').textContent = applicationId;
+      });
+      
+      // 签名功能
+      const signaturePad = document.getElementById('signature-pad');
+      const clearButton = document.getElementById('clear-signature');
+      
+      let isDrawing = false;
+      let ctx;
+      
+      // 创建画布
+      function setupSignaturePad() {
+        const canvas = document.createElement('canvas');
+        canvas.width = signaturePad.clientWidth;
+        canvas.height = signaturePad.clientHeight;
+        signaturePad.innerHTML = '';
+        signaturePad.appendChild(canvas);
+        signaturePad.classList.add('signature-empty');
+        
+        ctx = canvas.getContext('2d');
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+        
+        // 鼠标事件
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // 触摸事件
+        canvas.addEventListener('touchstart', startDrawingTouch);
+        canvas.addEventListener('touchmove', drawTouch);
+        canvas.addEventListener('touchend', stopDrawing);
+      }
+      
+      function startDrawing(e) {
+        isDrawing = true;
+        signaturePad.classList.remove('signature-empty');
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+      }
+      
+      function draw(e) {
+        if (!isDrawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+      }
+      
+      function startDrawingTouch(e) {
+        e.preventDefault();
+        isDrawing = true;
+        signaturePad.classList.remove('signature-empty');
+        const touch = e.touches[0];
+        const rect = e.target.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+      }
+      
+      function drawTouch(e) {
+        e.preventDefault();
+        if (!isDrawing) return;
+        const touch = e.touches[0];
+        const rect = e.target.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+      }
+      
+      function stopDrawing() {
+        isDrawing = false;
+      }
+      
+      clearButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        setupSignaturePad();
+      });
+      
+      // 初始化签名区域
+      setupSignaturePad();
+      
+      // 初始设置步骤指示器
+      updateStepIndicator(1);
+    });
+  </script>
+</body>
+</html>
