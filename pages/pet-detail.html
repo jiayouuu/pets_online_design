@@ -195,56 +195,7 @@
         justify-content: center;
         margin: 0 auto 15px;
         font-weight: bold;
-      }
-
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .modal.show {
-        display: flex;
-      }
-
-      .modal-content {
-        background-color: var(--white);
-        border-radius: var(--border-radius);
-        width: 90%;
-        max-width: 600px;
-        max-height: 90vh;
-        overflow-y: auto;
-        padding: 30px;
-        position: relative;
-      }
-
-      .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-      }
-
-      .signature-container {
-        margin-top: 20px;
-      }
-
-      #signature-canvas {
-        width: 100%;
-        height: 200px;
-        border: 1px solid #ddd;
-        background-color: #f9f9f9;
-      }
+      }        
     </style>
   </head>
   <body>
@@ -337,7 +288,7 @@
           </div>
 
           <div class="pet-actions">
-            <button class="btn" data-modal="adoption-modal">申请领养</button>
+            <a href="adoption-form.html" class="btn btn-lg">申请领养</a>
             <button class="btn btn-secondary">
               <i class="bi bi-heart"></i> 收藏
             </button>
@@ -437,139 +388,8 @@
         <p>
           注意：领养不收取费用，但需要支付宠物医疗检查、疫苗和绝育手术的成本费用。
         </p>
-        <div class="text-center">
-          <button class="btn" data-modal="adoption-modal">我要领养</button>
-        </div>
       </div>
     </main>
-
-    <!-- Adoption Application Modal -->
-    <div id="adoption-modal" class="modal">
-      <div class="modal-content">
-        <button class="close-modal"><i class="bi bi-x"></i></button>
-        <h2>领养申请</h2>
-        <form id="adoption-form">
-          <h3>个人信息</h3>
-          <div class="form-group">
-            <label for="applicant-name"
-              >姓名 <span class="required">*</span></label
-            >
-            <input type="text" id="applicant-name" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="applicant-phone"
-              >手机号码 <span class="required">*</span></label
-            >
-            <input type="tel" id="applicant-phone" name="phone" required />
-          </div>
-          <div class="form-group">
-            <label for="applicant-email"
-              >电子邮箱 <span class="required">*</span></label
-            >
-            <input type="email" id="applicant-email" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="applicant-address"
-              >居住地址 <span class="required">*</span></label
-            >
-            <input type="text" id="applicant-address" name="address" required />
-          </div>
-
-          <h3>家庭环境</h3>
-          <div class="form-group">
-            <label for="house-type"
-              >住房类型 <span class="required">*</span></label
-            >
-            <select id="house-type" name="house_type" required>
-              <option value="">请选择</option>
-              <option value="apartment">公寓</option>
-              <option value="house">独立屋</option>
-              <option value="other">其他</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="living-status"
-              >居住状态 <span class="required">*</span></label
-            >
-            <select id="living-status" name="living_status" required>
-              <option value="">请选择</option>
-              <option value="own">自有住房</option>
-              <option value="rent">租房</option>
-              <option value="other">其他</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="family-members"
-              >家庭成员情况 <span class="required">*</span></label
-            >
-            <textarea
-              id="family-members"
-              name="family_members"
-              required
-              placeholder="请描述家庭成员情况，包括成人和儿童的数量、年龄等"
-            ></textarea>
-          </div>
-
-          <h3>养宠经验</h3>
-          <div class="form-group">
-            <label for="pet-experience"
-              >您是否有养宠物的经验？ <span class="required">*</span></label
-            >
-            <select id="pet-experience" name="pet_experience" required>
-              <option value="">请选择</option>
-              <option value="yes">是</option>
-              <option value="no">否</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="pet-history">请描述您的养宠经历</label>
-            <textarea
-              id="pet-history"
-              name="pet_history"
-              placeholder="如有养宠经验，请简述您曾经/正在养的宠物类型、数量、时长等信息"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="care-plan"
-              >请描述您计划如何照顾这只宠物
-              <span class="required">*</span></label
-            >
-            <textarea
-              id="care-plan"
-              name="care_plan"
-              required
-              placeholder="包括日常护理、饮食、运动、医疗保健等方面"
-            ></textarea>
-          </div>
-
-          <h3>协议签署</h3>
-          <div class="form-group">
-            <label>
-              <input type="checkbox" name="agreement" required />
-              我已阅读并同意<a href="#">《领养协议》</a>中的所有条款
-            </label>
-          </div>
-          <div class="form-group signature-container">
-            <label for="signature-canvas"
-              >电子签名 <span class="required">*</span></label
-            >
-            <canvas id="signature-canvas"></canvas>
-            <button
-              type="button"
-              id="clear-signature"
-              class="btn btn-secondary"
-            >
-              清除签名
-            </button>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn">提交申请</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
     <!-- Footer -->
     <footer>
       <div class="container">
