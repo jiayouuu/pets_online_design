@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 常见问题</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Page specific styles */
+      .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .faq-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .faq-header h1 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .faq-header p {
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .faq-search {
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .faq-search input {
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 30px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .faq-search button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      .faq-categories {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .faq-category {
+        background-color: white;
+        border: 2px solid #eee;
+        border-radius: 30px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .faq-category:hover,
+      .faq-category.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .faq-list {
+        margin-bottom: 40px;
+      }
+
+      .faq-item {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: 15px;
+        overflow: hidden;
+      }
+
+      .faq-question {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .faq-question i {
+        transition: transform 0.3s;
+      }
+
+      .faq-question.active i {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s, padding 0.3s;
+      }
+
+      .faq-answer.active {
+        padding: 0 20px 20px;
+        max-height: 500px;
+      }
+
+      .faq-contact {
+        text-align: center;
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        margin-top: 40px;
+      }
+
+      .faq-contact h3 {
+        margin-bottom: 15px;
+        color: var(--primary-color);
+      }
+
+      .faq-contact p {
+        margin-bottom: 20px;
+        color: #666;
+      }
+
+      .contact-methods {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .contact-method {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .contact-method i {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html">宠物领养</a></li>
+            <li><a href="forum.html">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="login.html" class="btn">登录/注册</a></li>
+            <li>
+              <a href="user-center.html" class="btn btn-secondary">个人中心</a>
+            </li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="faq-container">
+        <div class="faq-header">
+          <h1>常见问题</h1>
+          <p>
+            我们收集了用户最常提问的问题和答案，希望能帮助您更好地了解宠物领养流程和平台使用方法。
+          </p>
+        </div>
+
+        <div class="faq-search">
+          <input type="text" placeholder="搜索您的问题..." />
+          <button><i class="bi bi-search"></i> 搜索</button>
+        </div>
+
+        <div class="faq-categories">
+          <div class="faq-category active">全部问题</div>
+          <div class="faq-category">领养流程</div>
+          <div class="faq-category">账号相关</div>
+          <div class="faq-category">宠物照顾</div>
+          <div class="faq-category">在线问诊</div>
+          <div class="faq-category">物流配送</div>
+        </div>
+
+        <div class="faq-list">
+          <!-- 领养流程 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>如何开始宠物领养流程？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>开始宠物领养流程非常简单，您只需要按照以下步骤操作：</p>
+              <ol>
+                <li>注册并登录您的账号</li>
+                <li>浏览我们的宠物列表，选择您喜欢的宠物</li>
+                <li>点击"申请领养"按钮，填写领养申请表</li>
+                <li>提交申请后，我们的工作人员会在1-3个工作日内审核您的申请</li>
+                <li>申请通过后，我们会联系您安排后续事宜</li>
+              </ol>
+              <p>整个流程通常需要5-7个工作日完成。</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>领养申请需要提供哪些信息？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>为了确保宠物能找到合适的家庭，我们需要您提供以下信息：</p>
+              <ul>
+                <li>个人基本信息（姓名、年龄、职业等）</li>
+                <li>联系方式（电话、邮箱、地址）</li>
+                <li>家庭环境描述（住所类型、面积、是否有庭院等）</li>
+                <li>养宠经验（是否有养宠经验，有何种宠物等）</li>
+                <li>生活习惯（工作时间、居家时间等）</li>
+                <li>为什么想要领养这只宠物的原因</li>
+              </ul>
+              <p>所有信息仅用于评估领养申请，我们会严格保护您的隐私。</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>申请被拒绝的原因可能有哪些？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>申请被拒绝的常见原因包括：</p>
+              <ul>
+                <li>
+                  家庭环境不适合所申请的宠物（如空间不足、缺乏安全保障等）
+                </li>
+                <li>工作时间过长，无法给宠物足够的陪伴和照顾</li>
+                <li>家庭成员中有对宠物过敏的情况</li>
+                <li>所在小区或公寓不允许养宠物</li>
+                <li>对所申请宠物缺乏必要的了解和准备</li>
+              </ul>
+              <p>
+                如果您的申请被拒绝，我们会提供具体原因，并建议更适合您的宠物类型。您也可以在条件改善后再次申请。
+              </p>
+            </div>
+          </div>
+
+          <!-- 账号相关 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>如何修改我的账号信息？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>修改账号信息的步骤：</p>
+              <ol>
+                <li>登录您的账号</li>
+                <li>点击右上角的"个人中心"</li>
+                <li>在左侧菜单中选择"个人资料"</li>
+                <li>点击"编辑"按钮修改您的个人信息</li>
+                <li>完成修改后点击"保存"</li>
+              </ol>
+              <p>
+                需要注意的是，某些重要信息（如手机号码、邮箱）的修改需要验证码验证。
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>忘记密码怎么办？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>如果您忘记了密码，可以通过以下步骤重置：</p>
+              <ol>
+                <li>在登录页面点击"忘记密码"</li>
+                <li>输入您注册时使用的邮箱</li>
+                <li>点击"获取验证码"，系统会向您的邮箱发送验证码</li>
+                <li>输入收到的验证码</li>
+                <li>设置新密码并确认</li>
+                <li>使用新密码登录</li>
+              </ol>
+              <p>
+                如果您无法收到验证码或遇到其他问题，请联系我们的客服团队寻求帮助。
+              </p>
+            </div>
+          </div>
+
+          <!-- 宠物照顾 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>新手养宠需要准备哪些物品？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>新手养宠物需要准备的基本物品包括：</p>
+              <p><strong>对于猫咪：</strong></p>
+              <ul>
+                <li>猫粮和食水碗</li>
+                <li>猫砂和猫砂盆</li>
+                <li>猫窝或猫爬架</li>
+                <li>猫玩具（逗猫棒、猫薄荷玩具等）</li>
+                <li>猫抓板</li>
+                <li>猫咪运输箱</li>
+                <li>毛刷和指甲剪</li>
+              </ul>
+              <p><strong>对于狗狗：</strong></p>
+              <ul>
+                <li>狗粮和食水碗</li>
+                <li>狗窝或狗垫</li>
+                <li>牵引绳和项圈</li>
+                <li>狗玩具（橡胶球、咬胶等）</li>
+                <li>排便袋</li>
+                <li>狗狗运输箱</li>
+                <li>洗澡用品和毛刷</li>
+              </ul>
+              <p>
+                建议在领养前准备好这些物品，让宠物到家后能立即有一个舒适的环境。
+              </p>
+            </div>
+          </div>
+
+          <!-- 在线问诊 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>如何使用在线问诊功能？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>使用在线问诊功能的步骤：</p>
+              <ol>
+                <li>登录您的账号</li>
+                <li>点击导航栏中的"在线问诊"</li>
+                <li>选择您需要咨询的宠物类型和问题类别</li>
+                <li>填写具体症状描述，并上传相关照片或视频</li>
+                <li>选择在线医生或等待系统分配</li>
+                <li>支付咨询费用（部分基础咨询为免费服务）</li>
+                <li>等待医生回复，通常在30分钟内会收到回应</li>
+              </ol>
+              <p>
+                请注意，在线问诊仅提供初步建议，对于紧急或严重的健康问题，请立即带宠物前往实体宠物医院就诊。
+              </p>
+            </div>
+          </div>
+
+          <!-- 物流配送 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>宠物领养后如何安排运送？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>宠物领养后的运送方式有以下几种：</p>
+              <ul>
+                <li>
+                  <strong>自行接送：</strong>
+                  您可以亲自前往救助站或寄养家庭接宠物，这是我们最推荐的方式，可以让宠物减少运输压力。
+                </li>
+                <li>
+                  <strong>专业宠物运输：</strong>
+                  我们与专业的宠物运输公司合作，可以安排宠物的运送服务，费用根据距离和宠物大小而定。
+                </li>
+                <li>
+                  <strong>志愿者接力：</strong>
+                  在部分城市，我们有志愿者网络可以帮助进行宠物接力运送，该服务视志愿者情况而定。
+                </li>
+              </ul>
+              <p>
+                所有运输方式都会确保宠物的安全和舒适，长途运输会有专业人员陪伴看护。运输费用通常由领养人承担。
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>如何查询宠物运送状态？</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>查询宠物运送状态的方法：</p>
+              <ol>
+                <li>登录您的账号</li>
+                <li>进入"个人中心"</li>
+                <li>点击"我的领养" - "领养进度"</li>
+                <li>在进度页面可以看到宠物当前的运送状态和位置</li>
+                <li>也可以通过短信或邮件接收运送状态的实时更新</li>
+              </ol>
+              <p>
+                如果您对运送状态有疑问或需要变更计划，请及时联系我们的客服团队。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-contact">
+          <h3>还有其他问题？</h3>
+          <p>如果您没有找到想要的答案，可以通过以下方式联系我们：</p>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <i class="bi bi-envelope"></i>
+              <span>contact@petadoption.com</span>
+            </div>
+            <div class="contact-method">
+              <i class="bi bi-telephone"></i>
+              <span>400-888-8888</span>
+            </div>
+            <div class="contact-method">
+              <i class="bi bi-chat-dots"></i>
+              <span>在线客服</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="about.html">平台介绍</a></li>
+              <li><a href="about.html#team">团队成员</a></li>
+              <li><a href="about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="faq.html">常见问题</a></li>
+              <li><a href="terms.html">用户协议</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // FAQ 切换功能
+        const faqQuestions = document.querySelectorAll(".faq-question");
+        faqQuestions.forEach((question) => {
+          question.addEventListener("click", function () {
+            // 切换当前问题的激活状态
+            this.classList.toggle("active");
+            const answer = this.nextElementSibling;
+            answer.classList.toggle("active");
+          });
+        });
+
+        // FAQ 分类切换
+        const faqCategories = document.querySelectorAll(".faq-category");
+        faqCategories.forEach((category) => {
+          category.addEventListener("click", function () {
+            // 移除所有分类的激活状态
+            faqCategories.forEach((cat) => cat.classList.remove("active"));
+            // 添加当前分类的激活状态
+            this.classList.add("active");
+
+            // 这里可以添加过滤问题的逻辑
+            // 实际项目中可以基于分类显示不同的问题
+          });
+        });
+
+        // FAQ 搜索功能
+        const searchInput = document.querySelector(".faq-search input");
+        const searchButton = document.querySelector(".faq-search button");
+
+        searchButton.addEventListener("click", function () {
+          searchFaq();
+        });
+
+        searchInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchFaq();
+          }
+        });
+
+        function searchFaq() {
+          const searchTerm = searchInput.value.toLowerCase();
+
+          // 简单的搜索逻辑示例
+          if (searchTerm.trim() === "") {
+            // 如果搜索框为空，显示所有问题
+            document.querySelectorAll(".faq-item").forEach((item) => {
+              item.style.display = "block";
+            });
+            return;
+          }
+
+          // 遍历所有问题，检查是否包含搜索词
+          document.querySelectorAll(".faq-item").forEach((item) => {
+            const question = item
+              .querySelector(".faq-question span")
+              .textContent.toLowerCase();
+            const answer = item
+              .querySelector(".faq-answer")
+              .textContent.toLowerCase();
+
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

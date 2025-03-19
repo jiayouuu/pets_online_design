@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 帖子详情</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Page specific styles */
+      .post-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
+
+      .post-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .post-back {
+        display: flex;
+        align-items: center;
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .post-back i {
+        margin-right: 5px;
+      }
+
+      .post-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .post-action {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        background-color: white;
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s;
+      }
+
+      .post-action:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .post-action.danger:hover {
+        border-color: #e74c3c;
+        color: #e74c3c;
+      }
+
+      .post-content {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      .post-main {
+        padding: 30px;
+      }
+
+      .post-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: var(--text-color);
+      }
+
+      .post-meta {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .post-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .author-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .author-name {
+        font-weight: 500;
+        color: var(--primary-color);
+      }
+
+      .post-date {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .post-category {
+        display: inline-block;
+        background-color: #f5f5f5;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .post-text {
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .post-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .post-image {
+        width: 100%;
+        height: 200px;
+        border-radius: var(--border-radius);
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .post-image:hover {
+        transform: scale(1.02);
+      }
+
+      .post-stats {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+
+      .post-stat {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #666;
+      }
+
+      .post-stat.active {
+        color: var(--primary-color);
+      }
+
+      .comments-section {
+        margin-bottom: 40px;
+      }
+
+      .comments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .comments-count {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .comments-sort {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sort-option {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .sort-option.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .comments-list {
+        margin-bottom: 30px;
+      }
+
+      .comment {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 20px;
+        margin-bottom: 15px;
+      }
+
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .comment-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .comment-date {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .comment-content {
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .comment-actions {
+        display: flex;
+        gap: 15px;
+      }
+
+      .comment-action {
+        font-size: 14px;
+        color: #666;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .comment-action:hover {
+        color: var(--primary-color);
+      }
+
+      .comment-replies {
+        margin-left: 40px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+
+      .comment-form {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 20px;
+      }
+
+      .comment-form h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      .form-controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .attachment-btn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+      }
+
+      .attachment-btn:hover {
+        color: var(--primary-color);
+      }
+
+      /* Modal for images */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        max-width: 80%;
+        max-height: 80vh;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      /* Adoption request section for adoption posts */
+      .adoption-info {
+        background-color: #f8f9fa;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        margin-top: 20px;
+        border-left: 4px solid var(--secondary-color);
+      }
+
+      .adoption-info h3 {
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+      }
+
+      .pet-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .pet-detail {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .pet-detail i {
+        color: var(--secondary-color);
+      }
+
+      .adoption-status {
+        font-weight: 500;
+        color: #27ae60;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .post-meta {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .post-images {
+          grid-template-columns: 1fr;
+        }
+
+        .comment-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html">宠物领养</a></li>
+            <li><a href="forum.html">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="login.html" class="btn">登录/注册</a></li>
+            <li>
+              <a href="user-center.html" class="btn btn-secondary">个人中心</a>
+            </li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="post-container">
+        <div class="post-header">
+          <a href="forum.html" class="post-back">
+            <i class="bi bi-arrow-left"></i> 返回论坛
+          </a>
+          <div class="post-actions">
+            <button class="post-action">
+              <i class="bi bi-share"></i> 分享
+            </button>
+            <button class="post-action"><i class="bi bi-flag"></i> 举报</button>
+            <button class="post-action danger">
+              <i class="bi bi-trash"></i> 删除
+            </button>
+          </div>
+        </div>
+
+        <div class="post-content">
+          <div class="post-main">
+            <h1 class="post-title">
+              【求领养】一只超级可爱的金毛犬，希望能找到爱它的家
+            </h1>
+            <div class="post-meta">
+              <div class="post-author">
+                <img
+                  src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户1"
+                  alt="用户头像"
+                  class="author-avatar"
+                />
+                <div class="author-info">
+                  <span class="author-name">陈小明</span>
+                  <span class="post-date">发布于 2023-11-18 14:32</span>
+                </div>
+              </div>
+              <div class="post-category">领养信息</div>
+            </div>
+
+            <div class="post-text">
+              <p>
+                大家好，我是一名志愿者，最近救助了一只金毛犬，它现在大约2岁左右，是一只非常健康、友善的男孩子。由于我的住所条件有限，无法长期照顾它，所以希望能找到一个有爱心的家庭领养它。
+              </p>
+              <p>关于这只金毛：</p>
+              <ul>
+                <li>性格特别友善，对人和其他动物都很友好</li>
+                <li>已完成疫苗接种和体内外驱虫</li>
+                <li>已经绝育</li>
+                <li>会基本的指令，如坐下、握手等</li>
+                <li>非常喜欢和人玩耍，精力充沛</li>
+              </ul>
+              <p>希望领养家庭能满足以下条件：</p>
+              <ul>
+                <li>有足够的时间陪伴它</li>
+                <li>住所够大，最好有院子</li>
+                <li>有养狗经验更佳</li>
+                <li>能够提供良好的生活环境和定期的医疗检查</li>
+                <li>愿意定期向我们提供它的近况</li>
+              </ul>
+              <p>
+                如果您有意愿领养，请在评论区留言或私信我，我会尽快回复并安排见面。谢谢大家！
+              </p>
+            </div>
+
+            <div class="post-images">
+              <img
+                src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛犬-1"
+                alt="金毛犬照片1"
+                class="post-image"
+              />
+              <img
+                src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛犬-2"
+                alt="金毛犬照片2"
+                class="post-image"
+              />
+              <img
+                src="https://placehold.co/600x400/FF9800/FFFFFF?text=金毛犬-3"
+                alt="金毛犬照片3"
+                class="post-image"
+              />
+            </div>
+
+            <div class="adoption-info">
+              <h3>宠物信息</h3>
+              <div class="pet-details">
+                <div class="pet-detail">
+                  <i class="bi bi-tag"></i>
+                  <span>品种：金毛犬</span>
+                </div>
+                <div class="pet-detail">
+                  <i class="bi bi-gender-male"></i>
+                  <span>性别：公</span>
+                </div>
+                <div class="pet-detail">
+                  <i class="bi bi-calendar-event"></i>
+                  <span>年龄：2岁</span>
+                </div>
+                <div class="pet-detail">
+                  <i class="bi bi-geo-alt"></i>
+                  <span>地点：北京市朝阳区</span>
+                </div>
+                <div class="pet-detail">
+                  <i class="bi bi-heart-pulse"></i>
+                  <span>健康状况：良好，已绝育</span>
+                </div>
+              </div>
+              <p class="adoption-status">领养状态：待领养</p>
+              <a
+                href="adoption-form.html?pet_id=12345"
+                class="btn btn-secondary"
+                >申请领养</a
+              >
+            </div>
+
+            <div class="post-stats">
+              <div class="post-stat active">
+                <i class="bi bi-heart-fill"></i>
+                <span>24 喜欢</span>
+              </div>
+              <div class="post-stat">
+                <i class="bi bi-chat-dots"></i>
+                <span>13 评论</span>
+              </div>
+              <div class="post-stat">
+                <i class="bi bi-bookmark"></i>
+                <span>收藏</span>
+              </div>
+              <div class="post-stat">
+                <i class="bi bi-eye"></i>
+                <span>256 浏览</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comments-section">
+          <div class="comments-header">
+            <div class="comments-count">13条评论</div>
+            <div class="comments-sort">
+              <div class="sort-option active">最新</div>
+              <div class="sort-option">最早</div>
+              <div class="sort-option">最热</div>
+            </div>
+          </div>
+
+          <div class="comments-list">
+            <div class="comment">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <img
+                    src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户2"
+                    alt="用户头像"
+                    class="author-avatar"
+                  />
+                  <div class="author-info">
+                    <span class="author-name">李小华</span>
+                    <span class="comment-date">2023-11-18 15:45</span>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-content">
+                <p>
+                  这只狗狗太可爱了！我很想领养它，但是我家现在已经有一只猫咪了，不知道它们能否和平相处？狗狗对猫咪友好吗？
+                </p>
+              </div>
+              <div class="comment-actions">
+                <div class="comment-action">
+                  <i class="bi bi-heart"></i> 喜欢(5)
+                </div>
+                <div class="comment-action">
+                  <i class="bi bi-chat"></i> 回复
+                </div>
+              </div>
+
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-header">
+                    <div class="comment-author">
+                      <img
+                        src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户1"
+                        alt="用户头像"
+                        class="author-avatar"
+                      />
+                      <div class="author-info">
+                        <span class="author-name">陈小明</span>
+                        <span class="comment-date">2023-11-18 16:03</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment-content">
+                    <p>
+                      这只金毛非常友善，我观察过它和其他猫咪相处的情况，它很温和不会追逐猫咪。但具体情况还是要看你家猫咪的性格，如果你感兴趣，我们可以安排见面，观察一下它们的相处情况。
+                    </p>
+                  </div>
+                  <div class="comment-actions">
+                    <div class="comment-action">
+                      <i class="bi bi-heart"></i> 喜欢(3)
+                    </div>
+                    <div class="comment-action">
+                      <i class="bi bi-chat"></i> 回复
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <img
+                    src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户3"
+                    alt="用户头像"
+                    class="author-avatar"
+                  />
+                  <div class="author-info">
+                    <span class="author-name">张爱心</span>
+                    <span class="comment-date">2023-11-18 17:21</span>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-content">
+                <p>
+                  我家有养过金毛，确实是非常好的伙伴！它们很聪明也很忠诚。这只狗狗看起来很健康，希望它能找到一个好家庭。我现在的住所不允许养大型犬，不然我很愿意领养它。
+                </p>
+              </div>
+              <div class="comment-actions">
+                <div class="comment-action">
+                  <i class="bi bi-heart"></i> 喜欢(7)
+                </div>
+                <div class="comment-action">
+                  <i class="bi bi-chat"></i> 回复
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <img
+                    src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户4"
+                    alt="用户头像"
+                    class="author-avatar"
+                  />
+                  <div class="author-info">
+                    <span class="author-name">王大勇</span>
+                    <span class="comment-date">2023-11-19 09:15</span>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-content">
+                <p>
+                  我有意向！我家有个小院子，平时我工作在家，有足够的时间陪伴它。我已经有5年的养狗经验，之前养过拉布拉多。请问可以私聊详细了解一下吗？
+                </p>
+              </div>
+              <div class="comment-actions">
+                <div class="comment-action">
+                  <i class="bi bi-heart"></i> 喜欢(12)
+                </div>
+                <div class="comment-action">
+                  <i class="bi bi-chat"></i> 回复
+                </div>
+              </div>
+
+              <div class="comment-replies">
+                <div class="comment">
+                  <div class="comment-header">
+                    <div class="comment-author">
+                      <img
+                        src="https://placehold.co/150x150/607D8B/FFFFFF?text=用户1"
+                        alt="用户头像"
+                        class="author-avatar"
+                      />
+                      <div class="author-info">
+                        <span class="author-name">陈小明</span>
+                        <span class="comment-date">2023-11-19 09:32</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment-content">
+                    <p>
+                      太好了！您的条件听起来非常适合它。我已经给您发了私信，我们可以进一步沟通具体细节和安排见面时间。感谢您的关注！
+                    </p>
+                  </div>
+                  <div class="comment-actions">
+                    <div class="comment-action">
+                      <i class="bi bi-heart"></i> 喜欢(5)
+                    </div>
+                    <div class="comment-action">
+                      <i class="bi bi-chat"></i> 回复
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="comment-form">
+            <h3>发表评论</h3>
+            <div class="form-group">
+              <textarea
+                placeholder="写下你的评论..."
+                rows="4"
+                class="form-control"
+              ></textarea>
+            </div>
+            <div class="form-controls">
+              <button class="attachment-btn">
+                <i class="bi bi-image"></i> 添加图片
+              </button>
+              <button class="btn">发布评论</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Modal -->
+      <div class="modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage" />
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="about.html">平台介绍</a></li>
+              <li><a href="about.html#team">团队成员</a></li>
+              <li><a href="about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="faq.html">常见问题</a></li>
+              <li><a href="terms.html">用户协议</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Modal for images
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeModal = document.querySelector(".close-modal");
+        const images = document.querySelectorAll(".post-image");
+
+        images.forEach((img) => {
+          img.addEventListener("click", function () {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+          });
+        });
+
+        closeModal.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+
+        // Toggle like button
+        const likeBtn = document.querySelector(".post-stat.active");
+        likeBtn.addEventListener("click", function () {
+          this.classList.toggle("active");
+          const likeText = this.querySelector("span");
+          if (this.classList.contains("active")) {
+            likeText.textContent = "25 喜欢";
+          } else {
+            likeText.textContent = "24 喜欢";
+          }
+        });
+
+        // Toggle bookmark button
+        const bookmarkBtn = document.querySelector(".post-stat:nth-child(3)");
+        bookmarkBtn.addEventListener("click", function () {
+          this.classList.toggle("active");
+          const bookmarkText = this.querySelector("span");
+          if (this.classList.contains("active")) {
+            bookmarkText.textContent = "已收藏";
+          } else {
+            bookmarkText.textContent = "收藏";
+          }
+        });
+
+        // Sort comments
+        const sortOptions = document.querySelectorAll(".sort-option");
+        sortOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            sortOptions.forEach((opt) => opt.classList.remove("active"));
+            this.classList.add("active");
+            // Here would be the actual sorting logic in a real implementation
+          });
+        });
+
+        // Like comments
+        const commentLikes = document.querySelectorAll(
+          ".comment-action:nth-child(1)"
+        );
+        commentLikes.forEach((like) => {
+          like.addEventListener("click", function () {
+            this.classList.toggle("active");
+            const text = this.textContent.trim();
+            const count = parseInt(text.match(/\d+/)[0]);
+            if (this.classList.contains("active")) {
+              this.innerHTML = `<i class="bi bi-heart-fill"></i> 喜欢(${
+                count + 1
+              })`;
+            } else {
+              this.innerHTML = `<i class="bi bi-heart"></i> 喜欢(${count})`;
+            }
+          });
+        });
+
+        // Reply to comments
+        const replyBtns = document.querySelectorAll(
+          ".comment-action:nth-child(2)"
+        );
+        replyBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const commentForm = document.querySelector(".comment-form");
+            const commentTextarea = commentForm.querySelector("textarea");
+            commentTextarea.focus();
+            commentTextarea.value =
+              "@" +
+              this.closest(".comment").querySelector(".author-name")
+                .textContent +
+              " ";
+            commentForm.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
