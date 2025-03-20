@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宠物领养系统 - 志愿医生申请</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      /* 页面特定样式 */
+      .volunteer-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .volunteer-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .volunteer-header h1 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .volunteer-header p {
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .benefits-section {
+        background-color: #f8f9fa;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        margin-bottom: 40px;
+      }
+
+      .benefits-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+      }
+
+      .benefit-card {
+        text-align: center;
+        padding: 20px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        transition: transform 0.3s;
+      }
+
+      .benefit-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .benefit-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #e8f5e9;
+        color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 15px;
+      }
+
+      .benefit-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: var(--primary-color);
+      }
+
+      .application-section {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 30px;
+        margin-bottom: 40px;
+      }
+
+      .application-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .application-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        position: relative;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .application-steps::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        left: 70px;
+        right: 70px;
+        height: 2px;
+        background-color: #e9ecef;
+        z-index: 1;
+      }
+
+      .step {
+        position: relative;
+        z-index: 2;
+        width: 60px;
+        text-align: center;
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 10px;
+      }
+
+      .step-label {
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .application-form {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .form-section {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .form-section:last-child {
+        border-bottom: none;
+      }
+
+      .form-section-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+      }
+
+      .form-section-number {
+        width: 30px;
+        height: 30px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+      }
+
+      .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .form-text {
+        font-size: 13px;
+        color: #666;
+        margin-top: 5px;
+      }
+
+      .doc-upload {
+        border: 2px dashed #ddd;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .doc-upload:hover {
+        border-color: var(--primary-color);
+        background-color: #f9f9f9;
+      }
+
+      .doc-upload i {
+        font-size: 36px;
+        color: #999;
+        margin-bottom: 10px;
+      }
+
+      .doc-upload p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .doc-upload .small {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+      }
+
+      .uploaded-files {
+        margin-top: 15px;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: var(--border-radius);
+        margin-bottom: 10px;
+      }
+
+      .file-icon {
+        margin-right: 10px;
+        color: var(--primary-color);
+      }
+
+      .file-name {
+        flex: 1;
+        font-size: 14px;
+      }
+
+      .file-action {
+        cursor: pointer;
+        color: #dc3545;
+      }
+
+      .time-slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .time-slot {
+        display: flex;
+        align-items: center;
+      }
+
+      .time-slot input {
+        margin-right: 8px;
+      }
+
+      .required {
+        color: #dc3545;
+      }
+
+      .form-actions {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .guidelines-section {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 30px;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      }
+
+      .guidelines-section h3 {
+        color: #856404;
+        margin-bottom: 10px;
+      }
+
+      .guidelines-section p {
+        margin: 0;
+        color: #856404;
+      }
+
+      .success-message {
+        display: none;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .success-message i {
+        font-size: 64px;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      .success-message h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .application-steps {
+          overflow-x: auto;
+          padding-bottom: 10px;
+          justify-content: flex-start;
+          gap: 20px;
+        }
+
+        .application-steps::before {
+          left: 30px;
+          right: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">宠爱有家</div>
+          <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="pets.html">宠物领养</a></li>
+            <li><a href="forum.html">社区论坛</a></li>
+            <li><a href="consultation.html">在线问诊</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="login.html" class="btn">登录/注册</a></li>
+            <li>
+              <a href="user-center.html" class="btn btn-secondary">个人中心</a>
+            </li>
+          </ul>
+          <div class="menu-toggle">
+            <i class="bi bi-list"></i>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="volunteer-container">
+        <div class="volunteer-header">
+          <h1>申请成为志愿动物医生</h1>
+          <p>
+            感谢您有意向成为我们的志愿动物医生！您的专业知识和爱心将帮助更多有需要的宠物主人，为宠物健康保驾护航。请填写以下申请表，我们将在3-5个工作日内审核并与您联系。
+          </p>
+        </div>
+
+        <!-- 成为志愿医生的好处 -->
+        <div class="benefits-section">
+          <h2>成为志愿医生的益处</h2>
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="bi bi-heart-pulse"></i>
+              </div>
+              <h3 class="benefit-title">帮助更多宠物</h3>
+              <p>通过在线咨询，帮助无法及时到达医院的宠物获得医疗建议</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="bi bi-clock"></i>
+              </div>
+              <h3 class="benefit-title">灵活的时间安排</h3>
+              <p>根据您的个人日程，自由选择上线时间，无固定工作时长要求</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="bi bi-cash-coin"></i>
+              </div>
+              <h3 class="benefit-title">合理的报酬</h3>
+              <p>根据咨询量获得相应的志愿补贴，同时积累专业评价和声誉</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="bi bi-people"></i>
+              </div>
+              <h3 class="benefit-title">专业社区</h3>
+              <p>加入我们的兽医专家社区，参与学术讨论，拓展专业人脉</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 申请流程 -->
+        <div class="application-section">
+          <h2>申请流程</h2>
+          <div class="application-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-label">提交申请</div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-label">资格审核</div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-label">面试沟通</div>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-label">平台培训</div>
+            </div>
+            <div class="step">
+              <div class="step-number">5</div>
+              <div class="step-label">正式加入</div>
+            </div>
+          </div>
+
+          <!-- 申请指南 -->
+          <div class="guidelines-section">
+            <h3>申请前须知</h3>
+            <p>
+              • 申请人必须持有有效的兽医执业资格证书<br />
+              • 至少有2年以上的临床工作经验<br />
+              • 具备良好的沟通能力和服务意识<br />
+              • 能够使用智能设备进行在线咨询<br />
+              • 每周至少能提供4小时的在线咨询服务
+            </p>
+          </div>
+
+          <!-- 申请表单 -->
+          <form class="application-form" id="volunteer-form">
+            <!-- 基本信息 -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-number">1</div>
+                <h3>基本信息</h3>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="full-name"
+                    >姓名 <span class="required">*</span></label
+                  >
+                  <input type="text" id="full-name" name="full_name" required />
+                </div>
+                <div class="form-group">
+                  <label for="gender">性别</label>
+                  <select id="gender" name="gender">
+                    <option value="">请选择</option>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                    <option value="other">其他</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone"
+                    >联系电话 <span class="required">*</span></label
+                  >
+                  <input type="tel" id="phone" name="phone" required />
+                </div>
+                <div class="form-group">
+                  <label for="email"
+                    >电子邮箱 <span class="required">*</span></label
+                  >
+                  <input type="email" id="email" name="email" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="address">联系地址</label>
+                <input type="text" id="address" name="address" />
+              </div>
+            </div>
+
+            <!-- 专业资质 -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-number">2</div>
+                <h3>专业资质</h3>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="education"
+                    >最高学历 <span class="required">*</span></label
+                  >
+                  <select id="education" name="education" required>
+                    <option value="">请选择</option>
+                    <option value="bachelor">本科</option>
+                    <option value="master">硕士</option>
+                    <option value="doctor">博士</option>
+                    <option value="other">其他</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="graduation"
+                    >毕业院校 <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="graduation"
+                    name="graduation"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="major"
+                    >专业 <span class="required">*</span></label
+                  >
+                  <input type="text" id="major" name="major" required />
+                </div>
+                <div class="form-group">
+                  <label for="graduation-year"
+                    >毕业年份 <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="graduation-year"
+                    name="graduation_year"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="license-number"
+                    >执业证书编号 <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="license-number"
+                    name="license_number"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="license-expiry"
+                    >证书有效期至 <span class="required">*</span></label
+                  >
+                  <input
+                    type="date"
+                    id="license-expiry"
+                    name="license_expiry"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>上传执业证书 <span class="required">*</span></label>
+                <div class="doc-upload" id="license-upload">
+                  <i class="bi bi-cloud-arrow-up"></i>
+                  <p>点击上传或拖拽文件至此处</p>
+                  <p class="small">支持 JPG, PNG, PDF 格式，最大10MB</p>
+                  <input
+                    type="file"
+                    id="license-file"
+                    name="license_file"
+                    style="display: none"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                  />
+                </div>
+                <div class="uploaded-files" id="license-files"></div>
+              </div>
+            </div>
+
+            <!-- 工作经验 -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-number">3</div>
+                <h3>工作经验</h3>
+              </div>
+              <div class="form-group">
+                <label for="experience-years"
+                  >从业年限 <span class="required">*</span></label
+                >
+                <select id="experience-years" name="experience_years" required>
+                  <option value="">请选择</option>
+                  <option value="0-2">0-2年</option>
+                  <option value="2-5">2-5年</option>
+                  <option value="5-10">5-10年</option>
+                  <option value="10+">10年以上</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="current-workplace"
+                  >当前工作单位 <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="current-workplace"
+                  name="current_workplace"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="position"
+                  >职位 <span class="required">*</span></label
+                >
+                <input type="text" id="position" name="position" required />
+              </div>
+              <div class="form-group">
+                <label for="speciality"
+                  >专长领域 <span class="required">*</span></label
+                >
+                <select id="speciality" name="speciality" required multiple>
+                  <option value="internal">内科</option>
+                  <option value="surgery">外科</option>
+                  <option value="dermatology">皮肤科</option>
+                  <option value="dentistry">牙科</option>
+                  <option value="ophthalmology">眼科</option>
+                  <option value="cardiology">心脏科</option>
+                  <option value="neurology">神经科</option>
+                  <option value="nutrition">营养学</option>
+                  <option value="behavior">行为学</option>
+                  <option value="other">其他</option>
+                </select>
+                <p class="form-text">按住Ctrl键(Mac上为Command键)可多选</p>
+              </div>
+              <div class="form-group">
+                <label for="experience-desc"
+                  >工作经历简述 <span class="required">*</span></label
+                >
+                <textarea
+                  id="experience-desc"
+                  name="experience_desc"
+                  required
+                  placeholder="请简要描述您的主要工作经历、擅长领域和成就..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>上传简历(可选)</label>
+                <div class="doc-upload" id="resume-upload">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <p>点击上传或拖拽文件至此处</p>
+                  <p class="small">支持 PDF, DOC, DOCX 格式，最大10MB</p>
+                  <input
+                    type="file"
+                    id="resume-file"
+                    name="resume_file"
+                    style="display: none"
+                    accept=".pdf,.doc,.docx"
+                  />
+                </div>
+                <div class="uploaded-files" id="resume-files"></div>
+              </div>
+            </div>
+
+            <!-- 时间安排 -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-number">4</div>
+                <h3>时间安排</h3>
+              </div>
+              <div class="form-group">
+                <label
+                  >每周可提供的咨询时间 <span class="required">*</span></label
+                >
+                <div class="time-slots">
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-mon-am"
+                      name="available_time[]"
+                      value="mon-am"
+                    />
+                    <label for="time-mon-am">周一上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-mon-pm"
+                      name="available_time[]"
+                      value="mon-pm"
+                    />
+                    <label for="time-mon-pm">周一下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-tue-am"
+                      name="available_time[]"
+                      value="tue-am"
+                    />
+                    <label for="time-tue-am">周二上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-tue-pm"
+                      name="available_time[]"
+                      value="tue-pm"
+                    />
+                    <label for="time-tue-pm">周二下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-wed-am"
+                      name="available_time[]"
+                      value="wed-am"
+                    />
+                    <label for="time-wed-am">周三上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-wed-pm"
+                      name="available_time[]"
+                      value="wed-pm"
+                    />
+                    <label for="time-wed-pm">周三下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-thu-am"
+                      name="available_time[]"
+                      value="thu-am"
+                    />
+                    <label for="time-thu-am">周四上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-thu-pm"
+                      name="available_time[]"
+                      value="thu-pm"
+                    />
+                    <label for="time-thu-pm">周四下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-fri-am"
+                      name="available_time[]"
+                      value="fri-am"
+                    />
+                    <label for="time-fri-am">周五上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-fri-pm"
+                      name="available_time[]"
+                      value="fri-pm"
+                    />
+                    <label for="time-fri-pm">周五下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-sat-am"
+                      name="available_time[]"
+                      value="sat-am"
+                    />
+                    <label for="time-sat-am">周六上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-sat-pm"
+                      name="available_time[]"
+                      value="sat-pm"
+                    />
+                    <label for="time-sat-pm">周六下午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-sun-am"
+                      name="available_time[]"
+                      value="sun-am"
+                    />
+                    <label for="time-sun-am">周日上午</label>
+                  </div>
+                  <div class="time-slot">
+                    <input
+                      type="checkbox"
+                      id="time-sun-pm"
+                      name="available_time[]"
+                      value="sun-pm"
+                    />
+                    <label for="time-sun-pm">周日下午</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="weekly-hours"
+                  >每周可提供的小时数 <span class="required">*</span></label
+                >
+                <select id="weekly-hours" name="weekly_hours" required>
+                  <option value="">请选择</option>
+                  <option value="4-8">4-8小时</option>
+                  <option value="8-12">8-12小时</option>
+                  <option value="12-20">12-20小时</option>
+                  <option value="20+">20小时以上</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="start-date"
+                  >可开始服务的日期 <span class="required">*</span></label
+                >
+                <input type="date" id="start-date" name="start_date" required />
+              </div>
+            </div>
+
+            <!-- 其他信息 -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-number">5</div>
+                <h3>其他信息</h3>
+              </div>
+              <div class="form-group">
+                <label for="motivation"
+                  >申请动机 <span class="required">*</span></label
+                >
+                <textarea
+                  id="motivation"
+                  name="motivation"
+                  required
+                  placeholder="请简述您希望成为志愿动物医生的原因..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="referral">您是如何了解到我们的？</label>
+                <select id="referral" name="referral">
+                  <option value="">请选择</option>
+                  <option value="friend">朋友推荐</option>
+                  <option value="social">社交媒体</option>
+                  <option value="search">搜索引擎</option>
+                  <option value="ad">广告</option>
+                  <option value="other">其他</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="additional-info">其他补充信息(可选)</label>
+                <textarea
+                  id="additional-info"
+                  name="additional_info"
+                  placeholder="如有其他您希望我们了解的信息，请在此说明..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="terms_agree" required />
+                我已阅读并同意<a href="terms.html" target="_blank"
+                  >《志愿者服务协议》</a
+                >和<a href="privacy.html" target="_blank">《隐私政策》</a>
+                <span class="required">*</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn" onclick="window.history.back()">
+                取消
+              </button>
+              <button type="submit" class="btn btn-secondary">提交申请</button>
+            </div>
+          </form>
+
+          <!-- 提交成功消息(默认隐藏) -->
+          <div class="success-message" id="success-message">
+            <i class="bi bi-check-circle"></i>
+            <h2>申请提交成功！</h2>
+            <p>
+              感谢您提交志愿动物医生申请。我们已收到您的申请，工作人员将在3-5个工作日内进行审核，并通过您提供的联系方式与您沟通后续事宜。
+            </p>
+            <p>期待您的加入，一起为宠物健康贡献力量！</p>
+            <div class="confirmation-buttons" style="margin-top: 30px">
+              <a href="../index.html" class="btn">返回首页</a>
+              <a href="consultation.html" class="btn btn-secondary"
+                >查看问诊页面</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- 常见问题 -->
+        <div class="application-section">
+          <h2>常见问题</h2>
+          <div class="accordion">
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h3>志愿医生需要承担哪些责任？</h3>
+                <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <p>作为志愿动物医生，您主要负责：</p>
+                  <ul>
+                    <li>
+                      在您选择的时段内，通过平台提供在线图文、电话或视频咨询服务
+                    </li>
+                    <li>根据宠物主人提供的信息和照片，提供专业的健康建议</li>
+                    <li>在必要时建议宠物主人前往线下医院就诊</li>
+                    <li>为平台的知识库贡献专业内容</li>
+                    <li>参与平台组织的宠物健康科普活动</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h3>志愿服务有什么回报？</h3>
+                <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <p>作为我们平台的志愿动物医生，您将获得：</p>
+                  <ul>
+                    <li>根据咨询量获得的志愿服务补贴</li>
+                    <li>专业技能提升的机会，包括定期培训和学术交流</li>
+                    <li>与其他动物医学专家建立联系的平台</li>
+                    <li>为社会做贡献的满足感</li>
+                    <li>平台提供的专业责任保险</li>
+                    <li>优秀志愿者表彰和奖励</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h3>我需要使用什么设备提供咨询？</h3>
+                <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <p>您需要：</p>
+                  <ul>
+                    <li>一台可以上网的电脑或平板设备</li>
+                    <li>稳定的网络连接</li>
+                    <li>如提供视频咨询，需要摄像头和麦克风</li>
+                    <li>如提供电话咨询，需要稳定的通话设备</li>
+                  </ul>
+                  <p>
+                    平台会提供专业的在线咨询系统，您只需登录系统即可开始提供服务。我们会提供必要的技术培训和支持。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h3>如何处理紧急情况？</h3>
+                <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  <p>
+                    如果您在咨询过程中发现宠物有紧急情况需要立即处理，我们有明确的操作流程：
+                  </p>
+                  <ol>
+                    <li>明确告知宠物主人这是紧急情况，需要立即前往线下医院</li>
+                    <li>
+                      提供简单的应急措施建议，帮助宠物主人在前往医院前稳定宠物状况
+                    </li>
+                    <li>
+                      使用平台的"紧急支援"功能，系统会自动推荐附近的合作宠物医院
+                    </li>
+                    <li>记录情况并在事后填写紧急情况处理报告</li>
+                  </ol>
+                  <p>
+                    平台定期会对紧急情况处理流程进行培训，确保每位志愿医生都能妥善应对。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- testimonials -->
+        <div class="testimonials-section">
+          <h2>志愿医生心声</h2>
+          <div class="testimonials">
+            <div class="testimonial">
+              <div class="testimonial-content">
+                <p>
+                  "参与这个平台的志愿服务是我职业生涯中的一大亮点。通过在线咨询，我能够帮助许多无法及时到达医院的宠物，同时也让我的专业知识得到了充分的应用。平台的培训和支持系统非常完善，让我能够专注于提供专业建议。"
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img
+                  src="https://placehold.co/100x100/4CAF50/FFFFFF?text=医生"
+                  alt="志愿医生"
+                  class="testimonial-avatar"
+                />
+                <div class="testimonial-info">
+                  <h4>陈医生</h4>
+                  <p>兽医学博士，志愿服务2年</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial">
+              <div class="testimonial-content">
+                <p>
+                  "在繁忙的线下诊所工作之外，我每周抽出几个小时参与平台的在线咨询。这不仅是对我专业技能的一种补充，也让我深刻感受到通过远程方式帮助更多宠物的价值。平台提供的灵活时间安排非常适合像我这样的兼职志愿者。"
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img
+                  src="https://placehold.co/100x100/2196F3/FFFFFF?text=医生"
+                  alt="志愿医生"
+                  class="testimonial-avatar"
+                />
+                <div class="testimonial-info">
+                  <h4>李医生</h4>
+                  <p>小动物专科医师，志愿服务1年</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <div class="footer-section">
+            <h3>关于我们</h3>
+            <ul>
+              <li><a href="about.html">平台介绍</a></li>
+              <li><a href="about.html#team">团队成员</a></li>
+              <li><a href="about.html#contact">联系我们</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>服务与支持</h3>
+            <ul>
+              <li><a href="faq.html">常见问题</a></li>
+              <li><a href="terms.html">用户协议</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><i class="bi bi-envelope"></i> contact@petadoption.com</li>
+              <li><i class="bi bi-telephone"></i> 400-888-8888</li>
+              <li><i class="bi bi-geo-alt"></i> 北京市海淀区XX路XX号</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 宠爱有家 - 宠物领养平台 版权所有</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 文件上传处理
+        const licenseUpload = document.getElementById("license-upload");
+        const licenseFile = document.getElementById("license-file");
+        const licenseFiles = document.getElementById("license-files");
+
+        const resumeUpload = document.getElementById("resume-upload");
+        const resumeFile = document.getElementById("resume-file");
+        const resumeFiles = document.getElementById("resume-files");
+
+        // 绑定上传区域点击事件
+        licenseUpload.addEventListener("click", () => {
+          licenseFile.click();
+        });
+
+        resumeUpload.addEventListener("click", () => {
+          resumeFile.click();
+        });
+
+        // 处理文件选择
+        licenseFile.addEventListener("change", function () {
+          handleFileUpload(this, licenseFiles);
+        });
+
+        resumeFile.addEventListener("change", function () {
+          handleFileUpload(this, resumeFiles);
+        });
+
+        // 文件处理函数
+        function handleFileUpload(input, displayArea) {
+          if (input.files && input.files.length > 0) {
+            displayArea.innerHTML = "";
+            for (let i = 0; i < input.files.length; i++) {
+              const file = input.files[i];
+              // 创建文件显示项
+              const fileItem = document.createElement("div");
+              fileItem.className = "file-item";
+
+              let iconClass = "bi-file-earmark";
+              if (file.type.includes("pdf")) {
+                iconClass = "bi-file-earmark-pdf";
+              } else if (file.type.includes("image")) {
+                iconClass = "bi-file-earmark-image";
+              } else if (file.type.includes("word")) {
+                iconClass = "bi-file-earmark-word";
+              }
+
+              fileItem.innerHTML = `
+                <i class="bi ${iconClass} file-icon"></i>
+                <span class="file-name">${file.name}</span>
+                <i class="bi bi-x-circle file-action"></i>
+              `;
+
+              displayArea.appendChild(fileItem);
+
+              // 删除文件
+              fileItem
+                .querySelector(".file-action")
+                .addEventListener("click", function () {
+                  displayArea.removeChild(fileItem);
+                  // 在实际应用中，这里需要清除input的值，但由于安全限制，
+                  // 不能直接修改input.files，通常做法是重置表单或创建新的input
+                });
+            }
+          }
+        }
+
+        // 拖拽上传
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          licenseUpload.addEventListener(eventName, preventDefaults, false);
+          resumeUpload.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        // 拖拽样式
+        ["dragenter", "dragover"].forEach((eventName) => {
+          licenseUpload.addEventListener(eventName, highlight, false);
+          resumeUpload.addEventListener(eventName, highlight, false);
+        });
+
+        ["dragleave", "drop"].forEach((eventName) => {
+          licenseUpload.addEventListener(eventName, unhighlight, false);
+          resumeUpload.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+          this.classList.add("highlight");
+        }
+
+        function unhighlight(e) {
+          this.classList.remove("highlight");
+        }
+
+        // 处理拖拽放下
+        licenseUpload.addEventListener(
+          "drop",
+          function (e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            licenseFile.files = files;
+            handleFileUpload(licenseFile, licenseFiles);
+          },
+          false
+        );
+
+        resumeUpload.addEventListener(
+          "drop",
+          function (e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            resumeFile.files = files;
+            handleFileUpload(resumeFile, resumeFiles);
+          },
+          false
+        );
+
+        // 手风琴效果
+        const accordionHeaders = document.querySelectorAll(".accordion-header");
+        accordionHeaders.forEach((header) => {
+          header.addEventListener("click", function () {
+            const accordionItem = this.parentElement;
+            accordionItem.classList.toggle("active");
+          });
+        });
+
+        // 表单提交
+        const volunteerForm = document.getElementById("volunteer-form");
+        volunteerForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // 表单验证
+          let isValid = true;
+
+          // 检查必填字段
+          const requiredInputs = volunteerForm.querySelectorAll("[required]");
+          requiredInputs.forEach((input) => {
+            if (!input.value.trim()) {
+              isValid = false;
+              input.classList.add("error");
+            } else {
+              input.classList.remove("error");
+            }
+          });
+
+          // 检查时间选择
+          const timeCheckboxes = volunteerForm.querySelectorAll(
+            'input[name="available_time[]"]'
+          );
+          let timeSelected = false;
+          timeCheckboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+              timeSelected = true;
+            }
+          });
+
+          if (!timeSelected) {
+            isValid = false;
+            alert("请至少选择一个可提供咨询的时间段");
+          }
+
+          // 如果表单有效，显示成功信息
+          if (isValid) {
+            volunteerForm.style.display = "none";
+            document.getElementById("success-message").style.display = "block";
+
+            // 滚动到顶部
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+    </script>
+
+    <style>
+      /* 附加样式 */
+      .highlight {
+        border-color: var(--primary-color) !important;
+        background-color: #f0f7ff !important;
+      }
+
+      .error {
+        border-color: #dc3545 !important;
+      }
+
+      .accordion-item {
+        overflow: hidden;
+        border: 1px solid #eee;
+        border-radius: var(--border-radius);
+        margin-bottom: 15px;
+      }
+
+      .accordion-header {
+        padding: 15px 20px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .accordion-header h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .accordion-body {
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+
+      .accordion-body-inner {
+        padding: 20px;
+      }
+
+      .accordion-item.active .accordion-body {
+        max-height: 500px;
+      }
+
+      /* 心声部分样式 */
+      .testimonials-section {
+        margin-bottom: 40px;
+      }
+
+      .testimonials-section h2 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+      }
+
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 30px;
+      }
+
+      .testimonial {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 30px;
+      }
+
+      .testimonial-content {
+        color: #333;
+        font-style: italic;
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+      .testimonial-content:before {
+        content: '"';
+        font-size: 60px;
+        color: rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: -20px;
+        left: -15px;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+
+      .testimonial-info h4 {
+        margin: 0;
+        color: var(--primary-color);
+      }
+
+      .testimonial-info p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        .testimonials {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>
